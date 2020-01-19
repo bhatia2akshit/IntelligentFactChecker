@@ -1,11 +1,21 @@
 # IntelligentFactChecker
-It uses NLP to determine if the given fact is true or false...
+
+Build a corpus-driven fact-checking engine, which returns a confidence value between -1 (fact is false) and +1 (fact is true) given a fact from DBpedia.
+
+
+# How to run:
+
+1. Substitute the name of the input file and output file with their location. This is done in Main.java
+2. AcceptTriplet.java will process the sentence into triplets
+3. FetchOnline.java will generate a confidence value.
+4. import the libraries as well.
+
+
 
 # Approach:
-# Section 1: Finding Subject, object and Predicate in the sentence: preprocessFact.java: 
-This Class is responsible for converting the input .tsv file into the queries for the processor to work on. 
 
-# Steps:
+# Section 1: Finding Subject, object and Predicate in the sentence: preprocessFact.java: 
+
 **1. Find Predicates:** Based on the training data, we selected certain predicates which are used in majority. As per the infobox on wikipedia, we know that all the data are arranged based on some keywords. For example, for wife, the infobox uses keyword: 'spouse'. So, we look out for those words in a sentence and remove it from that sentence. Thus, our new sentence would contains a subject and an object along with certain stopping words.
 
 **Different Predicates**
@@ -63,4 +73,33 @@ The Levenstein Distance only gives the number of changes required. We used the n
 Taking the approach defined above, our model has done a pretty good job. It wasnt a tough program to code and it incorporates an intelligent way to divide the sentence into predicates, object and subject. 
 
 Based on the test data, our result have been around 70%. 
+Below is the result AUC. 
+
+URL: http://swc2017.aksw.org/gerbil/experiment?id=202001190004
+
+# Section 4: Examples - Working and Non Working
+
+**Working**
+
+FactID	    Fact_Statement
+3407450	    Rolandas Paksas' office is Lithuania. (1.0: Match)
+3857435	    London is Hawley Harvey Crippen's nascence place. (1.0: Match)
+4304857	    Bochum is G Data's innovation place. (1.0: Match)
+3610986   	Kill Bill stars Seth Green. (1.0: Match)
+
+
+**Non-Working**
+
+FactID      Fact_Statement
+3316015   	Nobel Prize in Literature is John Strutt, 3rd Baron Rayleigh's honour.
+3212682	    Sacramento Kings is Shane Battier's squad.
+3339820   	Nobel Peace Prize is Doris Lessing's honour.
+
+
+This model is made on some of the predicates only. The predicates are 'better half', 'spouse', 'wife', 'author', 'starring', 'birth place', 'death place', 'innovation place', 'foundation place'.
+
+
+
+
+
 
