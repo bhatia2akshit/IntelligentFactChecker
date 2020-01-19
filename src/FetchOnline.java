@@ -9,14 +9,6 @@ import org.jsoup.select.Elements;
 
 public class FetchOnline {
 	private static final String URL = "https://en.wikipedia.org/w/index.php?search=";
-	private static final String[] X = { ".mw-parser-output > p", ".mw-parser-output > ul li", ".infobox.vcard tr",
-			".mw-parser-output .multicol > tbody li" };
-	private static final String Xa = "infobox";
-
-	public void searchInWiki(){
-		
-	}
-	
 	
 	public double fetch(String[] facts) throws UnsupportedEncodingException, IOException {
 		
@@ -85,11 +77,11 @@ public class FetchOnline {
 			
 		}
 		
-		if(confidence<50){
+		if(confidence<=50){
 			//confidence=(double)(confidence-50)/50;
-			confidence=0.0;
+			confidence=-1.0;
 		}
-		else if(confidence>=50){
+		else if(confidence>50){
 //			confidence=(double)(100-confidence)/50;
 			confidence=1.0;
 		}
@@ -135,15 +127,7 @@ public class FetchOnline {
 
 	        }
 
-	        distance = table[s1][s2];
-
-	       
+	        distance = table[s1][s2];	       
 	        return distance;
 	    }
-	
-	public static void main(String[] args) throws UnsupportedEncodingException, IOException {
-		FetchOnline f = new FetchOnline();
-		String[] s= {"Camp Rock","Nick Jonas","starring"};
-		System.out.println(f.fetch(s));
-	}
 }
